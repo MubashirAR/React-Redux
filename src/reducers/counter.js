@@ -7,8 +7,8 @@ import { combineReducers } from "redux";
 let actionList = (state = [], action) => {
   let newState = [...state];
   switch (action.type) {
-    case 'INCREMENT':
-      newState.push(action.type);
+      case 'INCREMENT_SUCCESS':
+        newState.push(action.type);
       return newState;
     case 'DECREMENT':
       newState.push(action.type);
@@ -20,7 +20,7 @@ let actionList = (state = [], action) => {
 }
 let counter = (state = 0, action) => {
   switch (action.type) {
-    case 'INCREMENT':
+    case 'INCREMENT_SUCCESS':
       state += 1
       return state;
     case 'DECREMENT':
@@ -31,7 +31,19 @@ let counter = (state = 0, action) => {
       return state;
   }
 }
+let isLoading = (state = false, action) => {
+  switch (action.type) {
+    case 'INCREMENT_START':
+      return true;
+    case 'INCREMENT_SUCCESS':
+      return false;
+  
+    default:
+      return state;
+  }
+}
 export default combineReducers({
   actionList,
+  isLoading,
   counter
 })
